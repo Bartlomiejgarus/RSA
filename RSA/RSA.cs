@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using System.Security.Cryptography;
+using System.Numerics;
 
 namespace RSA
 {
     internal static class RSA
     {
-        private static BigInteger P = 11; //2339 ; // 11;
-        private static BigInteger Q = 17; // 543671; //17;
+        private static BigInteger P = 34412123; //2339 ; // 11;
+        private static BigInteger Q = 3429893; // 543671; //17;
 
         //Klucze publiczne
         public static BigInteger E = 7;
@@ -20,12 +22,11 @@ namespace RSA
         /// </summary>
         public static BigInteger N => P * Q;
 
-        private static BigInteger Je(BigInteger ascii) => ascii.Pow(E);
+        private static BigInteger phi => (P - 1) * (Q - 1);
 
         private static BigInteger C(BigInteger ascii)
         {
-            var J = Je(ascii);
-            return J % N;
+            return BigInteger.ModPow(ascii, E, N);
         }
 
         public static BigInteger Encrypt(BigInteger numberToEncrypt)

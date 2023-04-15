@@ -16,11 +16,11 @@ namespace RSA
             var factors = factorNumber(RSA.N);
             if (factors.Count != 2)
                 throw new Exception("Nie podano 2 pierwszych liczb");
-            var k = K(factors[0], factors[1]);
+            var k = D(factors[0], factors[1]);
             List<BigInteger> listOfDecryptedNumbers = new List<BigInteger>();
             foreach (var numberToDecrypt in listOfNumbers)
             {
-                BigInteger decryptedNumber = J(numberToDecrypt, k);
+                BigInteger decryptedNumber = BigInteger.ModPow(numberToDecrypt, k, RSA.N);
 
                 listOfDecryptedNumbers.Add(decryptedNumber);
             }
@@ -32,20 +32,20 @@ namespace RSA
             var factors = factorNumber(RSA.N);
             if (factors.Count != 2)
                 throw new Exception("Nie podano 2 pierwszych liczb");
-            var k = K(factors[0], factors[1]);
+            var k = D(factors[0], factors[1]);
 
-            return J(numberToDecrypt, k);
+            return BigInteger.ModPow(numberToDecrypt, k, RSA.N);
+
+
+
+            //return J(numberToDecrypt, k);
         }
 
-        public static BigInteger J(BigInteger ascii, BigInteger k)
+        public static BigInteger D(BigInteger P, BigInteger Q)
         {
-            var a = ascii.Pow(k);
-            return a % RSA.N;
-        }
+            var phi = (P - 1) * (Q - 1);
 
-        public static BigInteger K(BigInteger P, BigInteger Q)
-        {
-            return ((P - 1) * (Q - 1) + 1) / RSA.E;
+            return Tools.ModInverse(RSA.E, phi);
         }
 
         public static List<BigInteger> factorNumber(BigInteger n)

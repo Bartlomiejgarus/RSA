@@ -74,15 +74,34 @@ namespace RSA
                 throw new ArgumentException("Element jest poza tablica ASCII");
             }
         }
-        public static BigInteger Pow(this BigInteger number, BigInteger pow)
+
+        public static BigInteger ModInverse(BigInteger a, BigInteger m)
         {
-            BigInteger wynik = 1;
-            for (BigInteger i = 0; i < pow; i++)
+            BigInteger m0 = m;
+            BigInteger y = 0, x = 1;
+
+            if (m == 1)
+                return 0;
+
+            while (a > 1)
             {
-                wynik *= number;
+                BigInteger q = a / m;
+                BigInteger t = m;
+
+                m = a % m;
+                a = t;
+                t = y;
+
+                y = x - q * y;
+                x = t;
             }
 
-            return wynik;
+            if (x < 0)
+            {
+                x += m0;
+            }
+
+            return x;
         }
     }
 }
