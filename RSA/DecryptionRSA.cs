@@ -43,7 +43,7 @@ namespace RSA
             return factors;
         }
 
-            public static BigInteger D(BigInteger P, BigInteger Q)
+        public static BigInteger D(BigInteger P, BigInteger Q)
         {
             var phi = (P - 1) * (Q - 1);
 

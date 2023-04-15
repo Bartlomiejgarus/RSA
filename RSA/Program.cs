@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace RSA
 {
-    internal class Program
+    internal class main
     {
         static void Main(string[] args)
         {
+
             Stopwatch stopwatch = new Stopwatch();
 
             string text = "a";
