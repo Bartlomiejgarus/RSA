@@ -9,8 +9,8 @@ namespace RSA
 {
     internal static class RSA
     {
-        private static BigInteger P = 11; //3671267; // 11;
-        private static BigInteger Q = 17;// 543671; //17;
+        private static BigInteger P = 11; //2339 ; // 11;
+        private static BigInteger Q = 17; // 543671; //17;
 
         //Klucze publiczne
         public static BigInteger E = 7;
@@ -28,30 +28,22 @@ namespace RSA
             return J % N;
         }
 
-        public static string Encrypt(string text)
+        public static BigInteger Encrypt(BigInteger numberToEncrypt)
         {
-            var encryptedString = "";
-            foreach (var charintext in text)
-            {
-                BigInteger ascii = Convert.ToUInt64(charintext);
-                BigInteger encrypted = C(ascii);
-                char charEncrypted = Convert.ToChar(((UInt64)encrypted));
-
-                encryptedString += charEncrypted;
-            }
-
-            return encryptedString;
+            return C(numberToEncrypt);
         }
 
-        public static BigInteger Pow(this BigInteger number, BigInteger pow)
-        {
-            BigInteger wynik = 1;
-            for (BigInteger i = 0; i<pow; i++)
-            {
-                wynik *= number;
-            }
+        public static List<BigInteger> Encrypt(string text) => Encrypt(text.ToListBigInteger());
+        
 
-            return wynik;
+        public static List<BigInteger> Encrypt(List<BigInteger> listOfNumbers)
+        {
+            List<BigInteger> result = new List<BigInteger>();
+            foreach (var numberToEncrypt in listOfNumbers)
+            {
+                result.Add(Encrypt(numberToEncrypt));
+            }
+            return result;
         }
     }
 }

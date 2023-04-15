@@ -4,28 +4,37 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace RSA
 {
     internal static class DecryptionRSA
     {
-        public static string Decrypt(string encryptedString)
+        public static List<BigInteger> Decrypt(List<BigInteger> listOfNumbers)
         {
             var factors = factorNumber(RSA.N);
             if (factors.Count != 2)
                 throw new Exception("Nie podano 2 pierwszych liczb");
             var k = K(factors[0], factors[1]);
-            var decryptString = "";
-            foreach (var charintext in encryptedString)
+            List<BigInteger> listOfDecryptedNumbers = new List<BigInteger>();
+            foreach (var numberToDecrypt in listOfNumbers)
             {
-                BigInteger ascii = Convert.ToUInt64(charintext);
-                BigInteger decrypt = J(ascii, k);
-                char charEncrypted = Convert.ToChar((UInt64)decrypt);
+                BigInteger decryptedNumber = J(numberToDecrypt, k);
 
-                decryptString += charEncrypted;
+                listOfDecryptedNumbers.Add(decryptedNumber);
             }
-            return decryptString;
+            return listOfDecryptedNumbers;
+        }
+
+        public static BigInteger Decrypt(BigInteger numberToDecrypt)
+        {
+            var factors = factorNumber(RSA.N);
+            if (factors.Count != 2)
+                throw new Exception("Nie podano 2 pierwszych liczb");
+            var k = K(factors[0], factors[1]);
+
+            return J(numberToDecrypt, k);
         }
 
         public static BigInteger J(BigInteger ascii, BigInteger k)
