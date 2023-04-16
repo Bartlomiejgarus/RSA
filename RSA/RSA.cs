@@ -11,14 +11,14 @@ namespace RSA
 {
     internal static class RSA
     {
-        private static BigInteger P = 99999989;
-        private static BigInteger Q = 299999977;
+        //private static BigInteger P = 99999989;
+        //private static BigInteger Q = 299999977;
 
-        //private static BigInteger P = 11;
-        //private static BigInteger Q = 17;
+        private static BigInteger P = 11;//9921701887; //911701069;
+        private static BigInteger Q = 17;//11217010787; //211701079;
 
         //Klucze publiczne
-        public static BigInteger E = 998623; //7; 
+        public static BigInteger E = 7; //211701079; 
 
         /// <summary>
         /// Iloczyn liczb pierwszych P, Q

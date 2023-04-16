@@ -14,7 +14,7 @@ namespace RSA
 
             Stopwatch stopwatch = new Stopwatch();
 
-            string text = "a";
+            string text = "Automaty, Jezyki i Obliczenia";
             Console.WriteLine("Tekst do zmiany:");
             Console.WriteLine(text);
 
